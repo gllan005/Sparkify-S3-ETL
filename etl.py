@@ -27,6 +27,7 @@ def process_song_data(spark, input_data, output_data):
 
     # get file path of song_data 
     # input_data = 's3a://udacity-dend/'  os.join.path concatenates the file paths
+    # song data path ex. /song_data/A/A/A/TRAAAAK128F9318786 <- Key
     song_data = os.join.path(input_data, '/song_data/*/*/*/*.json')
 
     # read in the song data
@@ -35,6 +36,13 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+
+    # get file path for the log data
+    # log data path ex. log_data/2018/11/2018-11-01-events <- key 
+    log_data = os.path.join(input_data, 'log_data/*/*/*.json')
+
+    # read in log data 
+    df = spark.read.json(log_data)
 
 # main function that runs the file with all functions, variables and data
 def main():
