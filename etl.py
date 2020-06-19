@@ -15,7 +15,6 @@ os.environ['AWS_ACCESS_KEY_ID'] = config['AWS_ACCESS_KEY_ID']
 os.environ['AWS_SECRET_KEY'] = config['AWS_SECRET_KEY']
 
 #function to create spark session
-
 def create_spark_session():
     spark = SparkSession \
         .builder \
@@ -23,7 +22,24 @@ def create_spark_session():
         .config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:2.7.0') \
         .getOrCreate()
 
+#this function will take song data input, process it and store it to the lake
+def process_song_data(spark, input_data, output_data):
+
+    # get file path of song_data 
+    # input_data = 's3a://udacity-dend/'  os.join.path concatenates the file paths
+    song_data = os.join.path(input_data, '/song_data/*/*/*/*.json')
+
+    # read in the song data
+    df = spark.read.json(song_data)
 
 
 
-def process_song_data(input, output)
+def process_log_data(spark, input_data, output_data):
+
+# main function that runs the file with all functions, variables and data
+def main():
+    process_song_data(spark, input_data, output_data)
+    proces
+
+if __name__ == "__main__":
+    main()
