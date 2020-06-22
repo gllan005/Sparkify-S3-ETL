@@ -11,8 +11,8 @@ config = configparser.ConfigParser()
 config.read('dl.cfg') #read in the dl configuration file
 
 # set aws credential global variables by calling objects in the dl config file
-os.environ['AWS_ACCESS_KEY_ID'] = config['AWS_ACCESS_KEY_ID']
-os.environ['AWS_SECRET_KEY'] = config['AWS_SECRET_KEY']
+os.environ['AWS_ACCESS_KEY_ID'] = config['AWS']['AWS_ACCESS_KEY_ID']
+os.environ['AWS_SECRET_KEY'] = config['AWS']['AWS_SECRET_KEY']
 
 #function to create spark session
 def create_spark_session():
@@ -33,6 +33,9 @@ def process_song_data(spark, input_data, output_data):
     # read in the song data
     df = spark.read.json(song_data)
 
+    # create song table by extracting song data columns from df
+    #song_table = df[]
+
 
 
 def process_log_data(spark, input_data, output_data):
@@ -46,8 +49,15 @@ def process_log_data(spark, input_data, output_data):
 
 # main function that runs the file with all functions, variables and data
 def main():
+
+    # run the process functions, define spark, input_data, output_data parameters
+
+    spark = create_spark_session()
+    input_data = 's3a://udacity-dend/'
+    output_data = 'results'
+
     process_song_data(spark, input_data, output_data)
-    proces
+    process_log_data(spark, input_data, output_data)
 
 if __name__ == "__main__":
     main()
